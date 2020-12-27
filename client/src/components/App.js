@@ -6,18 +6,18 @@ import StreamEdit from './streams/StreamEdit'
 import StreamList from './streams/StreamList'
 import StreamShow from './streams/StreamShow'
 import Header from './Header';
-import { createMuiTheme, makeStyles, ThemeProvider, useTheme } from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
     palette: {
       type: "dark"
     }
-  });
+});
 
 const App = () => {
     return (
         <div>
-            {/* <ThemeProvider theme={theme}> */}
+            <ThemeProvider theme={theme}> 
                 <BrowserRouter>
                     <div>
                     
@@ -29,7 +29,7 @@ const App = () => {
                         <Route path="/streams/show" exact component={StreamShow} />
                     </div>
                 </BrowserRouter>
-            {/* </ThemeProvider> */}
+            </ThemeProvider>
         </div>
     )
 }
