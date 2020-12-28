@@ -20,7 +20,6 @@ const App = () => {
             <ThemeProvider theme={theme}> 
                 <BrowserRouter>
                     <div>
-                    
                         <Header />
                         <Route path="/" exact component={StreamList} />
                         <Route path="/streams/new" exact component={StreamCreate} />
