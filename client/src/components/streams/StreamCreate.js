@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Layout from '../ContentLayout';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
-import { createStream } from "../../actions";
+import { streamCreate } from "../../actions";
 import { connect } from 'react-redux';
 
 
@@ -82,4 +82,4 @@ const formWrapped = reduxForm({
     validate,
 })(StreamCreate);
 
-export default connect(null, { createStream })(formWrapped);
+export default connect(null, { createStream: streamCreate })(formWrapped);
