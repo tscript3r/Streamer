@@ -4,17 +4,14 @@ import TextField from '@material-ui/core/TextField'
 import Layout from '../ContentLayout';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
-import { makeStyles } from '@material-ui/core/styles';
+import { createStream } from "../../actions";
+import { connect } from 'react-redux';
 
 
-class StreamCreate extends React.Component { 
-  
-    constructor(props) {
-        super(props);
-    }
+class StreamCreate extends React.Component {
 
-    onSubmit(formValues) { 
-      
+    onSubmit = (formValues) => {
+        this.props.createStream(formValues);
     }
 
     validate = values => {
@@ -52,11 +49,10 @@ class StreamCreate extends React.Component {
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <div>
                   <Field name="title" component={this.renderTextField} label="Stream title" />
-
                 </div><br />
                 <Field name="description" component={this.renderTextField} label="Stream description" />
                 <div><br /><br />
-                <center><Button variant="outlined" color="secondary" type="submit" startIcon={<SendIcon />}>Submit</Button></center>
+                <Button variant="outlined" color="secondary" type="submit" startIcon={<SendIcon />}>Submit</Button>
                 </div>
             </form>
         )
@@ -69,20 +65,21 @@ class StreamCreate extends React.Component {
 }
 
 const validate = (values) => {
-  const errors = {}
+  const errors = {};
   const requiredFields = [
     'title', 'description'
-  ]
+  ];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required'
     }
-  })
-
-  return errors
+  });
+  return errors;
 }
 
-export default reduxForm({
+const formWrapped = reduxForm({
     form: 'streamCreate',
-    validate
+    validate,
 })(StreamCreate);
+
+export default connect(null, { createStream })(formWrapped);
