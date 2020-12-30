@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import GoogleAuth from './GoogleAuth';
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions';
+import logo from '../logo5.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  logo: {
+    marginTop: 8
+  }
 }));
 
 const Header = (props) => {
@@ -30,7 +34,9 @@ const Header = (props) => {
       <AppBar color="inherit" position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-          <Link component={RouterLink} to="/" color="inherit"><Button variant="outlined" color="inherit">Streamer</Button></Link> 
+            <Link component={RouterLink} to="/" color="inherit">
+              <img className={classes.logo} src={logo} alt="logo" width="100" height="40"/>
+            </Link>
           </Typography>
           <GoogleAuth />
         </Toolbar>

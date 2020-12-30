@@ -8,6 +8,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import Fab from '@material-ui/core/Fab';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
 
 class GoogleAuth extends React.Component {
 
@@ -67,9 +70,8 @@ class GoogleAuth extends React.Component {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={this.handleMenu}
-                            color="inherit"
                             >
-                                <AccountCircle />
+                                <AccountCircle fontSize={"large"}/>
                             </IconButton>
                             <Menu
                             id="menu-appbar"
@@ -91,12 +93,17 @@ class GoogleAuth extends React.Component {
                                 <MenuItem onClick={this.handleMenuSignOut}>Logout</MenuItem>
                             </Menu>
                         </div>
-                        : 
-                    <Button variant="outlined" color="inherit" onClick={this.signIn}>LOG IN / SIGN UP</Button>}
+                        : <Button size={"large"} onClick={this.signIn}><FingerprintIcon fontSize={"large"}/> </Button>
+                    }
+
             </div>
         )
     }
+// <Button variant="outlined" onClick={this.signIn}>LOG IN / SIGN UP</Button>
 
+// <Fab aria-label="add" variant="extended" color={"secondary"} size={"small"}>
+// Login
+// </Fab>
 }
 
 const mapStateToProps = (state) => {
