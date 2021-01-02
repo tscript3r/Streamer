@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { streamFetchAll } from "../../actions";
 import SingleStreamCard from './SingleStreamCard';
 import {Grid, withStyles} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = theme => ({
     root: {
@@ -26,8 +25,16 @@ class StreamList extends React.Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container direction="row" spacing={2} className={classes.container} justify="center" alignItems="center" style={{ minHeight: '50vh' }}>
-                    {this.props.streams.map((stream, id) => <SingleStreamCard stream={stream} key={id} />)}
+                <Grid container
+                      direction="row"
+                      spacing={2}
+                      className={classes.container}
+                      justify="center"
+                      alignItems="center"
+                      style={{ minHeight: '50vh' }}>
+                    {this.props.streams.map((stream, id) =>
+                        <SingleStreamCard stream={stream} userId={this.props.userId} key={id} />)
+                    }
                 </Grid>
             </div>
         )
@@ -40,7 +47,10 @@ class StreamList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { streams: Object.values(state.streams) }
+    return {
+        streams: Object.values(state.streams),
+        userId: state.auth.userId
+    }
 }
 
 export default withStyles(useStyles)(connect(mapStateToProps, { streamFetchAll })(StreamList));

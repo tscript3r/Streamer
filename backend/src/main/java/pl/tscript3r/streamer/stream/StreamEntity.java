@@ -20,6 +20,7 @@ public class StreamEntity implements Serializable {
     private String id;
     private String title;
     private String description;
+    private String userId;
     @CreatedDate
     private LocalDateTime createdTimestamp;
 

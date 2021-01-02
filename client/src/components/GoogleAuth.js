@@ -8,17 +8,16 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import Fab from '@material-ui/core/Fab';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import { withRouter } from 'react-router-dom';
 
 class GoogleAuth extends React.Component {
 
-    state = { isSignedIn: null };
+    state = {isSignedIn: null};
 
     constructor(props) {
         super(props);
-        this.state = { anchorEl: null, open: false }
+        this.state = {anchorEl: null, open: false}
     }
 
     componentDidMount() {
@@ -59,55 +58,55 @@ class GoogleAuth extends React.Component {
         this.handleMenuClose();
     }
 
+    handleMenuCreateStream = () => {
+        this.props.history.push('/streams/new')
+        this.handleMenuClose();
+    }
+
     render() {
         return (
             <div>
-                {this.props.isSignedIn === null ? 
-                    <div><CircularProgress color="inherit" /></div> : this.props.isSignedIn ?
+                {this.props.isSignedIn === null ?
+                    <div><CircularProgress color="inherit"/></div> : this.props.isSignedIn ?
                         <div>
                             <IconButton
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={this.handleMenu}
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={this.handleMenu}
                             >
                                 <AccountCircle fontSize={"large"}/>
                             </IconButton>
                             <Menu
-                            id="menu-appbar"
-                            anchorEl={this.state.anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={this.state.open}
-                            onClose={this.handleMenuClose}
+                                id="menu-appbar"
+                                anchorEl={this.state.anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={this.state.open}
+                                onClose={this.handleMenuClose}
                             >
                                 <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-                                <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+                                <MenuItem onClick={this.handleMenuCreateStream}>Create stream</MenuItem>
                                 <MenuItem onClick={this.handleMenuSignOut}>Logout</MenuItem>
                             </Menu>
                         </div>
                         : <Button size={"large"} onClick={this.signIn}><FingerprintIcon fontSize={"large"}/> </Button>
-                    }
+                }
 
             </div>
         )
     }
-// <Button variant="outlined" onClick={this.signIn}>LOG IN / SIGN UP</Button>
-
-// <Fab aria-label="add" variant="extended" color={"secondary"} size={"small"}>
-// Login
-// </Fab>
 }
 
 const mapStateToProps = (state) => {
     return { isSignedIn: state.auth.isSignedIn }
 }
 
-export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
+export default withRouter(connect(mapStateToProps, { signIn, signOut })(GoogleAuth));

@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import history from "../../history";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,6 +55,10 @@ const MediaCard = (props) => {
         setExpanded(!expanded);
     };
 
+    const handleEditClick = () => {
+        history.push(`/streams/edit/${props.stream.id}`)
+    }
+
     return (
         <Grid item xs={12} sm={3}>
             <Card className={classes.root}>
@@ -70,7 +75,7 @@ const MediaCard = (props) => {
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {props.stream.description}
-                        {props.userId === props.stream.userId && (
+                        {props.userId && props.userId === props.stream.userId && (
                             <IconButton
                                 className={clsx(classes.expand, {
                                     [classes.expandOpen]: expanded,
@@ -83,14 +88,14 @@ const MediaCard = (props) => {
                             </IconButton>)}
                     </Typography>
                 </CardContent>
-                {props.userId === props.stream.userId && (
+                {props.userId && props.userId === props.stream.userId && (
                     <CardActions className={classes.expandedContent}>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <IconButton aria-label="delete" className={classes.margin}>
                                 <DeleteIcon/>
                             </IconButton>
-                            <IconButton aria-label="edit" className={classes.margin}>
-                                <EditIcon/>
+                            <IconButton aria-label="edit" className={classes.margin} onClick={handleEditClick}>
+                                <EditIcon />
                             </IconButton>
                         </Collapse>
                     </CardActions>)
