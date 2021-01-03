@@ -2,7 +2,6 @@ package pl.tscript3r.streamer.stream;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,13 +30,13 @@ public class StreamController {
 
     @PutMapping("{id}")
     public Mono<StreamEntity> updateStream(@PathVariable String id, @RequestBody StreamEntity streamEntity) {
+        streamEntity.setId(id);
         return streamRepository.save(streamEntity);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
-        streamRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public Mono<Void> delete(@PathVariable String id) {
+        return streamRepository.deleteById(id);
     }
 
 }

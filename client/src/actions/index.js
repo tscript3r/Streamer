@@ -36,10 +36,12 @@ export const streamFetchSingle = (id) => async dispatch => {
 export const streamDelete = (id) => async dispatch => {
     await streams.delete(`/streams/${id}`);
     dispatch({type: STREAM_DELETE, payload: id})
+    history.push('/');
 }
 
-export const streamEdit = (id, formValues) => async dispatch => {
-    const response = await streams.put(`/streams/${id}`, formValues);
+export const streamEdit = (id, formValues) => async (dispatch, getState) => {
+    const { userId } = getState().auth;
+    const response = await streams.put(`/streams/${id}`, { ...formValues, userId });
     dispatch({type: STREAM_EDIT, payload: response.data});
     history.push('/');
 }

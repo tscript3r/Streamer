@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import history from "../../history";
+import StreamDelete from "./StreamDelete";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +50,7 @@ function getRandomInt(min, max) {
 const MediaCard = (props) => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = React.useState(false);
     const [imgId] = React.useState(getRandomInt(50, 100));
 
     const handleExpandClick = () => {
@@ -57,6 +59,10 @@ const MediaCard = (props) => {
 
     const handleEditClick = () => {
         history.push(`/streams/edit/${props.stream.id}`)
+    }
+
+    const handleDeleteButton = () => {
+        setDeleteConfirmation(!deleteConfirmation);
     }
 
     return (
@@ -91,15 +97,20 @@ const MediaCard = (props) => {
                 {props.userId && props.userId === props.stream.userId && (
                     <CardActions className={classes.expandedContent}>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <IconButton aria-label="delete" className={classes.margin}>
-                                <DeleteIcon/>
+                            <IconButton aria-label="delete" className={classes.margin} onClick={handleDeleteButton}>
+                                <DeleteIcon />
                             </IconButton>
                             <IconButton aria-label="edit" className={classes.margin} onClick={handleEditClick}>
                                 <EditIcon />
                             </IconButton>
                         </Collapse>
-                    </CardActions>)
-                }
+                    </CardActions>
+                )}
+                {props.userId && props.userId === props.stream.userId && deleteConfirmation && (
+                    <div onClick={handleDeleteButton}>
+                        <StreamDelete streamId={props.stream.id} show={true} />
+                    </div>
+                )}
             </Card>
         </Grid>
     );

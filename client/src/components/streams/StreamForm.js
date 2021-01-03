@@ -7,10 +7,6 @@ import SendIcon from '@material-ui/icons/Send';
 
 class StreamForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     onSubmit = (formValues) => {
         this.props.onSubmit(formValues);
     }
