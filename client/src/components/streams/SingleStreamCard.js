@@ -68,7 +68,7 @@ const MediaCard = (props) => {
     return (
         <Grid item xs={12} sm={3}>
             <Card className={classes.root}>
-                <CardActionArea>
+                <CardActionArea onClick={() => history.push(`/streams/${props.stream.id}`)}>
                     <CardMedia
                         className={classes.media}
                         image={`https://picsum.photos/id/${imgId}/200?random=3`}

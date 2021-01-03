@@ -8,21 +8,17 @@ import { streamDelete } from '../../actions';
 
 const StreamDelete = (props) => {
 
-    const renderCancel = () => {
-        return (
-            <Button color="secondary" startIcon={<ThumbDownIcon />}>
-                Disagree
-            </Button>
-        )
-    }
+    const renderCancel = (
+        <Button color="secondary" startIcon={<ThumbDownIcon />}>
+            Disagree
+        </Button>
+    )
 
-    const renderActions = () => {
-        return (
-            <Button color="primary" startIcon={<ThumbUpIcon />} onClick={handleConfirmation}>
-                Agree
-            </Button>
-        );
-    }
+    const renderActions = () => (
+        <Button color="primary" startIcon={<ThumbUpIcon />} onClick={handleConfirmation}>
+            Agree
+        </Button>
+    );
 
     const handleConfirmation = () => {
         props.streamDelete(props.streamId);
@@ -33,7 +29,7 @@ const StreamDelete = (props) => {
                 show={props.show}
                 title="Confirmation"
                 description="Are you sure to delete this stream?"
-                cancel={renderCancel()}
+                cancel={renderCancel}
                 actions={renderActions()}
             />
     );
